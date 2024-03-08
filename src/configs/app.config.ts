@@ -13,5 +13,10 @@ export default registerAs<AppConfig>('app', () => {
     keyPem: process.env.KEY_PEM,
     certPem: process.env.CERT_PEM,
     appName: process.env.APP_NAME,
+    dbHost: process.env.DB_HOST,
+    dbPort: parseInt(process.env.DB_PORT, 10),
+    dbUsername: process.env.DB_USERNAME,
+    dbPassword: process.env.DB_PASSWORD,
+    dbName: process.env.DB_NAME,
   };
 });
