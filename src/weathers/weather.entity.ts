@@ -1,8 +1,8 @@
 import {
   Column,
   Entity,
-  JoinColumn,
-  OneToMany,
+  JoinTable,
+  ManyToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -19,7 +19,7 @@ export class Weather {
   @Column()
   degree: number;
 
-  @OneToMany(() => Clothes, (clothes) => clothes.id)
-  @JoinColumn()
+  @ManyToMany(() => Clothes, (clothes) => clothes.weather)
+  @JoinTable()
   clothes: Clothes[];
 }

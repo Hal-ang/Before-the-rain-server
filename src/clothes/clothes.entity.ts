@@ -1,10 +1,4 @@
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  ManyToOne,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 import { Weather } from 'src/weathers/weather.entity';
 
@@ -16,7 +10,6 @@ export class Clothes {
   @Column()
   name: string;
 
-  @ManyToOne(() => Weather, (weather) => weather.id)
-  @JoinColumn()
+  @ManyToMany(() => Weather, (weather) => weather.clothes)
   weather: Weather;
 }

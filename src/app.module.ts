@@ -1,6 +1,7 @@
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { Clothes } from './clothes/clothes.entity';
+import { ClothesModule } from './clothes/clothes.module';
 import { ConfigModule } from '@nestjs/config';
 import { Module } from '@nestjs/common';
 import { Survey } from './surveys/survey.entity';
@@ -8,6 +9,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './users/user.entity';
 import { UsersModule } from './users/users.module';
 import { Weather } from './weathers/weather.entity';
+import { WeathersModule } from './weathers/weathers.module';
 
 @Module({
   imports: [
@@ -28,6 +30,8 @@ import { Weather } from './weathers/weather.entity';
       autoLoadEntities: true,
     }),
     UsersModule,
+    WeathersModule,
+    ClothesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
