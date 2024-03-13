@@ -27,6 +27,22 @@ export class WeathersService {
     readonly httpService: HttpService,
   ) {}
 
+  getOpenWeatherAPI(
+    type: 'today-summary' | 'today-banner' | 'hourly',
+    query: { lat: number; lon: number },
+  ) {
+    const apiKey = this.configService.get<string>('API_KEY');
+
+    switch (type) {
+      case 'today-summary':
+        return `https://api.openweathermap.org/data/3.0/onecall?lat=${query.lat}&lon=${query.lon}&exclude=minutely,hourly,alerts&lang=kr&units=metric&appid=${apiKey}`;
+      case 'today-banner':
+        return `https://api.openweathermap.org/data/3.0/onecall?lat=${query.lat}&lon=${query.lon}&exclude=current,minutely,hourly,alerts&lang=kr&units=metric&appid=${apiKey}`;
+      default:
+        return `https://api.openweathermap.org/data/3.0/onecall?lat=${query.lat}&lon=${query.lon}&exclude=current,minutely,daily,alerts&lang=kr&units=metric&appid=${apiKey}`;
+    }
+  }
+
   async getTodaySummary(
     lat: number,
     lon: number,
@@ -34,13 +50,11 @@ export class WeathersService {
     console.log(`GET /weathers/today/summary?lat=${lat}lon=${lon}`);
 
     try {
-      const apiKey = this.configService.get<string>('API_KEY');
-
       const {
         data: { current, daily },
       } = await firstValueFrom<AxiosResponse<OpenWeatherSummaryResponse>>(
         this.httpService.get(
-          `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly,alerts&lang=kr&units=metric&appid=${apiKey}`,
+          this.getOpenWeatherAPI('today-summary', { lat, lon }),
         ),
       );
 
@@ -67,12 +81,11 @@ export class WeathersService {
     console.log(`GET /weathers/today/banner?lat=${lat}lon=${lon}`);
 
     try {
-      const apiKey = this.configService.get<string>('API_KEY');
       const {
         data: { daily },
       } = await firstValueFrom<AxiosResponse<OpenWeatherTodayBannerResponse>>(
         this.httpService.get(
-          `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&exclude=current,minutely,hourly,alerts&lang=kr&units=metric&appid=${apiKey}`,
+          this.getOpenWeatherAPI('today-banner', { lat, lon }),
         ),
       );
       const { pop: rainGage } = daily[0];
@@ -94,13 +107,10 @@ export class WeathersService {
     console.log(`GET /weathers/hourly?lat=${lat}lon=${lon}offset=${offset}`);
 
     try {
-      const apiKey = this.configService.get<string>('API_KEY');
       const {
         data: { hourly },
       } = await firstValueFrom<AxiosResponse<OpenWeatherHourlyResponse>>(
-        this.httpService.get(
-          `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&exclude=current,minutely,daily,alerts&lang=kr&units=metric&appid=${apiKey}`,
-        ),
+        this.httpService.get(this.getOpenWeatherAPI('hourly', { lat, lon })),
       );
 
       const mappedHourlyData: {
