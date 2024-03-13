@@ -3,7 +3,7 @@ import { Controller, Get, Param, Query, Res } from '@nestjs/common';
 import { WeathersService } from './weathers.service';
 
 import { GetHourlyDto, GetTodayBannerDto } from '@root/dto/weatherDto';
-import { TodaySummaryResponse } from './wathers.type';
+import { TodaySummaryResponse } from './weathers.type';
 
 @Controller('weathers')
 export class WeathersController {

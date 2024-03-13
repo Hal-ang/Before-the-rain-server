@@ -7,13 +7,14 @@ import { ConfigService } from '@nestjs/config';
 import { HttpService } from '@nestjs/axios';
 import { firstValueFrom } from 'rxjs';
 import {
+  GeocodingResponse,
   OpenWeatherHourlyResponse,
   OpenWeatherSectionResponse,
   OpenWeatherSummaryResponse,
   OpenWeatherTodayBannerResponse,
   TodayBannerResponse,
   TodaySummaryResponse,
-} from './wathers.type';
+} from './weathers.type';
 import { BANNERS } from '@root/constants/weather';
 import { getWeatherFromTemp } from '@root/utils/weather';
 import { Clothes } from '@root/clothes/clothes.entity';
@@ -63,14 +64,26 @@ export class WeathersService {
         temp: { min, max },
       } = daily[0];
 
+      const {
+        data: { documents },
+      } = await firstValueFrom<AxiosResponse<GeocodingResponse>>(
+        this.httpService.get(
+          `https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?y=${lat}&x=${lon}`,
+          {
+            headers: {
+              Authorization: `KakaoAK ${this.configService.get<string>('KAKAO_REST_API_KEY')}`,
+            },
+          },
+        ),
+      );
+
       return {
         dt,
         temp,
         weather: weather[0],
         min,
         max,
-        // TODO : geocoding API 연결 예정
-        cityName: '서울특별시 은평구',
+        cityName: documents[0].address_name,
       };
     } catch (e) {
       throw new Error(e);

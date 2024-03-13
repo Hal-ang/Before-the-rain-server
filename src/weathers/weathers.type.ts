@@ -49,3 +49,20 @@ export interface TodayBannerResponse {
   rainGage: number;
   imageUrl: string;
 }
+
+export interface GeocodingResponse {
+  meta: {
+    total_count: number;
+  };
+  documents: {
+    region_type: string;
+    address_name: string; // "경기도 성남시 분당구 삼평동"
+    region_1depth_name: string; //  "경기도"
+    region_2depth_name: string; // "성남시 분당구"
+    region_3depth_name: string; // "삼평동"
+    region_4depth_name: string; // ''
+    code: string;
+    x: number;
+    y: number;
+  }[];
+}

@@ -19,5 +19,6 @@ export default registerAs<AppConfig>('app', () => {
     dbPassword: process.env.DB_PASSWORD,
     dbName: process.env.DB_NAME,
     apiKey: process.env.API_KEY,
+    kakaoRestApiKey: process.env.KAKAO_REST_API_KEY,
   };
 });
