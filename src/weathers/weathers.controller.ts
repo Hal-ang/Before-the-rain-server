@@ -2,12 +2,8 @@ import { Controller, Get, Param, Query, Res } from '@nestjs/common';
 
 import { WeathersService } from './weathers.service';
 
-import {
-  GetHourlyDto,
-  GetTodayBannerDto,
-  GetTodaySummaryDto,
-} from '@root/dto/weatherDto';
-import { TodaySummaryType } from './wathers.type';
+import { GetHourlyDto, GetTodayBannerDto } from '@root/dto/weatherDto';
+import { TodaySummaryResponse } from './wathers.type';
 
 @Controller('weathers')
 export class WeathersController {
@@ -17,7 +13,7 @@ export class WeathersController {
   @Get('today/summary')
   getTodaySummary(
     @Query() { lat, lon }: { lat?: string; lon?: string },
-  ): Promise<TodaySummaryType> {
+  ): Promise<TodaySummaryResponse> {
     if (!lon || !lat) {
       // return 'failed';
     }
@@ -25,8 +21,12 @@ export class WeathersController {
   }
 
   @Get('today/banner')
-  getTodayBanner(@Query() { lat, lon }: GetTodayBannerDto) {
-    return `${lat} ${lon}`;
+  getTodayBanner(@Query() { lat, lon }: { lat?: string; lon?: string }) {
+    if (!lon || !lat) {
+      // return 'failed';
+    }
+
+    return this.weathersService.getTodayBanner(Number(lat), Number(lon));
   }
 
   @Get('hourly')
