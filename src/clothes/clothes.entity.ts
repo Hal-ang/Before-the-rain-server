@@ -11,5 +11,5 @@ export class Clothes {
   name: string;
 
   @ManyToMany(() => Weather, (weather) => weather.clothes)
-  weather: Weather;
+  weather: Weather[];
 }

@@ -1,3 +1,5 @@
+// import '../alias';
+
 import { AppModule } from './app.module';
 import { NestFactory } from '@nestjs/core';
 

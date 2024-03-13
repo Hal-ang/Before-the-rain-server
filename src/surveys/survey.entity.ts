@@ -22,7 +22,7 @@ export class Survey {
   @Column('simple-array')
   timePeriods: string[];
 
-  @OneToOne(() => User, (user) => user.id)
+  @OneToOne(() => User, (user) => user.survey)
   @JoinColumn()
   user: User;
 }

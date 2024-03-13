@@ -17,6 +17,5 @@ export class User {
   fcmToken: string;
 
   @OneToOne(() => Survey, (survey) => survey.user)
-  @JoinColumn()
   survey: Survey;
 }

@@ -5,6 +5,7 @@ import { ClothesModule } from './clothes/clothes.module';
 import { ConfigModule } from '@nestjs/config';
 import { Module } from '@nestjs/common';
 import { Survey } from './surveys/survey.entity';
+import { SurveysModule } from './surveys/surveys.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './users/user.entity';
 import { UsersModule } from './users/users.module';
@@ -32,6 +33,7 @@ import { WeathersModule } from './weathers/weathers.module';
     UsersModule,
     WeathersModule,
     ClothesModule,
+    SurveysModule,
   ],
   controllers: [AppController],
   providers: [AppService],
