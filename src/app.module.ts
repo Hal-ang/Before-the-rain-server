@@ -1,9 +1,11 @@
+import { Module, ValidationPipe } from '@nestjs/common';
+
+import { APP_PIPE } from '@nestjs/core';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { Clothes } from './clothes/clothes.entity';
 import { ClothesModule } from './clothes/clothes.module';
 import { ConfigModule } from '@nestjs/config';
-import { Module } from '@nestjs/common';
 import { Survey } from './surveys/survey.entity';
 import { SurveysModule } from './surveys/surveys.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -36,6 +38,6 @@ import { WeathersModule } from './weathers/weathers.module';
     SurveysModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, { provide: APP_PIPE, useClass: ValidationPipe }],
 })
 export class AppModule {}
