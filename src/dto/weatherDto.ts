@@ -1,10 +1,13 @@
-import { IsNumberString } from 'class-validator';
+import { IsInt } from 'class-validator';
+import { Type } from 'class-transformer';
 
 class CoordinatesDto {
-  @IsNumberString()
+  @IsInt()
+  @Type(() => Number)
   lat: number;
 
-  @IsNumberString()
+  @IsInt()
+  @Type(() => Number)
   lon: number;
 }
 
@@ -13,6 +16,7 @@ export class GetTodaySummaryDto extends CoordinatesDto {}
 export class GetTodayBannerDto extends CoordinatesDto {}
 
 export class GetHourlyDto extends CoordinatesDto {
-  @IsNumberString()
+  @IsInt()
+  @Type(() => Number)
   offset: number;
 }
