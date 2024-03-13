@@ -29,11 +29,19 @@ export class WeathersController {
     return this.weathersService.getTodayBanner(Number(lat), Number(lon));
   }
 
+  // offset max 48 정하기
   @Get('hourly')
   getHourly(
     @Query()
-    { lat, lon, offset = 24 }: GetHourlyDto,
+    { lat, lon, offset }: { lat?: string; lon?: string; offset?: string },
   ) {
-    return `${lat} ${lon} ${offset}`;
+    if (!lon || !lat) {
+      // return 'failed';
+    }
+    return this.weathersService.getHourly(
+      Number(lat),
+      Number(lon),
+      Number(offset),
+    );
   }
 }
