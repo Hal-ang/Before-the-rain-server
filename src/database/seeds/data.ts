@@ -1,165 +1,214 @@
 export const CLOTHES_DATA = [
   {
     name: '민소매',
+    id: 1,
   },
   {
     name: '반팔',
+    id: 2,
   },
   {
     name: '반바지',
+    id: 3,
   },
   {
     name: '짧은 치마',
+    id: 4,
   },
   {
     name: '린넨 옷',
+    id: 5,
   },
   {
     name: '반팔티',
+    id: 6,
   },
   {
     name: '얇은 셔츠',
+    id: 7,
   },
   {
     name: '면바지',
+    id: 8,
   },
   {
     name: '원피스',
+    id: 9,
   },
   {
     name: '긴팔티',
+    id: 10,
   },
   {
     name: '얇은 가디건',
+    id: 11,
   },
   {
     name: '청바지',
+    id: 12,
   },
   {
     name: '블라우스',
+    id: 13,
   },
   {
     name: '슬랙스',
+    id: 14,
   },
   {
     name: '7부바지',
+    id: 15,
   },
   {
     name: '얇은 재킷',
+    id: 16,
   },
   {
     name: '맨투맨',
+    id: 17,
   },
   {
     name: '후드',
+    id: 18,
   },
   {
     name: '긴바지',
+    id: 19,
   },
   {
     name: '바람막이',
+    id: 20,
   },
   {
     name: '야상',
+    id: 21,
   },
   {
     name: '니트',
+    id: 22,
   },
   {
     name: '살구색 스타킹',
+    id: 23,
   },
   {
     name: '청자켓',
+    id: 24,
   },
   {
     name: '기모 후드',
+    id: 25,
   },
   {
     name: '항공점퍼',
+    id: 26,
   },
   {
     name: '셔츠',
+    id: 27,
   },
   {
     name: '재킷',
+    id: 28,
   },
   {
     name: '트렌치코트',
+    id: 29,
   },
   {
     name: '검은색 스타킹',
+    id: 30,
   },
   {
     name: '울코트',
+    id: 31,
   },
   {
     name: '가죽 재킷',
+    id: 32,
   },
   {
     name: '스카프',
+    id: 33,
   },
   {
     name: '두꺼운 바지',
+    id: 34,
   },
   {
     name: '가죽 옷',
+    id: 35,
   },
   {
     name: '히트텍',
+    id: 36,
   },
   {
     name: '캐시미어 코트',
+    id: 37,
   },
   {
     name: '플리스 재킷',
+    id: 38,
   },
   {
     name: '경량패딩',
+    id: 39,
   },
   {
     name: '목폴라',
+    id: 40,
   },
   {
     name: '패딩',
+    id: 41,
   },
   {
     name: '두꺼운 코트',
+    id: 42,
   },
   {
     name: '목도리',
+    id: 43,
   },
   {
     name: '기모제품',
+    id: 44,
   },
   {
     name: '누빔옷',
+    id: 45,
   },
   {
     name: '장갑',
+    id: 46,
   },
   {
     name: '히트텍',
+    id: 47,
   },
   {
     name: '발열내의',
+    id: 48,
   },
   {
     name: '가디건',
+    id: 49,
   },
 ];
 
 export const WEATHER_DATA = [
-  { name: '매우 더움', degree: 8 },
-  { name: '더움', degree: 7 },
-  { name: '조금 더움', degree: 6 },
-  { name: '따듯함', degree: 5 },
-  { name: '선선함', degree: 4 },
-  { name: '조금 추움', degree: 3 },
-  { name: '추움', degree: 2 },
-  { name: '매우 추움', degree: 1 },
+  { id: 8, name: '매우 더움', degree: 8 },
+  { id: 7, name: '더움', degree: 7 },
+  { id: 6, name: '조금 더움', degree: 6 },
+  { id: 5, name: '따듯함', degree: 5 },
+  { id: 4, name: '선선함', degree: 4 },
+  { id: 3, name: '조금 추움', degree: 3 },
+  { id: 2, name: '추움', degree: 2 },
+  { id: 1, name: '매우 추움', degree: 1 },
 ];
 
-export const WEATHER_TO_CLOTHES_MAP = {
+export const WEATHER_TO_CLOTHES_MAP_DATA = {
   '매우 더움': ['민소매', '반팔', '반바지', '짧은 치마', '린넨 옷'],
   더움: ['반팔티', '얇은 셔츠', '반바지', '면바지', '원피스', '린넨 옷'],
   '조금 더움': [
