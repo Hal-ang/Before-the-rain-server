@@ -1,5 +1,3 @@
-// import '../alias';
-
 import { AppModule } from './app.module';
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
@@ -7,14 +5,17 @@ import { ValidationPipe } from '@nestjs/common';
 async function bootstrap() {
   const fs = require('fs');
 
-  // const httpsOptions = {
-  //   key: fs.readFileSync(process.env.KEY_PEM),
-  //   cert: fs.readFileSync(process.env.CERT_PEM),
-  // };
-
-  const app = await NestFactory.create(AppModule, {
-    // httpsOptions,
-  });
+  const app = await NestFactory.create(
+    AppModule,
+    process.env.MODE === 'development'
+      ? {
+          httpsOptions: {
+            key: fs.readFileSync(process.env.KEY_PEM),
+            cert: fs.readFileSync(process.env.CERT_PEM),
+          },
+        }
+      : {},
+  );
 
   app.enableCors({
     origin: '*',
@@ -23,7 +24,6 @@ async function bootstrap() {
     allowedHeaders: ['Authorization'],
   });
 
-  // enable validation globally
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
@@ -33,13 +33,6 @@ async function bootstrap() {
       },
     }),
   );
-
-  // app.useGlobalPipes(
-  //   new ValidationPipe({
-  //     transform: true,
-  //     transformOptions: { enableImplicitConversion: true },
-  //   }),
-  // );
 
   await app.listen(4000);
 }

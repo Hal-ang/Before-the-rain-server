@@ -5,16 +5,13 @@ config();
 
 export default new DataSource({
   type: 'mysql',
-  host: 'localhost',
-  port: 3306,
-  username: 'root',
-  password: '1234',
-  database: 'before_the_rain',
+  host: process.env.DB_HOST,
+  port: parseInt(process.env.DB_PORT, 10),
+  username: process.env.DB_USERNAME,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
   synchronize: false,
   entities: ['src/**/*.entity.ts'],
   migrations: ['src/database/migrations/*.ts'],
   migrationsTableName: 'migrations',
-  // // @ts-ignore
-  // seeds: ['src/database/seeds/**/*{.ts,.js}'],
-  // factories: ['src/database/factories/**/*{.ts,.js}'],
 });
