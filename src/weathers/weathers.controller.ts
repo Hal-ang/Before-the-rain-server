@@ -44,4 +44,12 @@ export class WeathersController {
       Number(offset),
     );
   }
+
+  @Get('widget')
+  getWidget(@Query() { lat, lon }: { lat?: string; lon?: string }) {
+    if (!lon || !lat) {
+      // return 'failed';
+    }
+    return this.weathersService.getWidget(Number(lat), Number(lon));
+  }
 }

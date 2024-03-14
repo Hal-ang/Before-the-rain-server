@@ -277,3 +277,24 @@ export const WEATHER_TO_CLOTHES_MAP_DATA = {
     '목폴라',
   ],
 };
+
+export const SF_SYMBOLS = {
+  '01d': 'sun.max.fill',
+  '01n': 'moon.fill',
+  '02d': 'cloud.sun.fill',
+  '02n': 'cloud.moon.fill',
+  '03d': 'cloud.fill',
+  '03n': 'cloud.fill',
+  '04d': 'smoke.fill',
+  '04n': 'smoke.fill',
+  '09d': 'cloud.heavyrain.fill',
+  '09n': 'cloud.heavyrain.fill',
+  '10d': 'cloud.sun.rain.fill',
+  '10n': 'cloud.moon.rain.fill',
+  '11d': 'cloud.bolt.fill',
+  '11n': 'cloud.bolt.fill',
+  '13d': 'snowflake',
+  '13n': 'snowflake',
+  '50d': 'cloud.fog.fill',
+  '50n': 'cloud.fog.fill',
+};

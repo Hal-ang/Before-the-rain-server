@@ -18,6 +18,7 @@ import {
 import { BANNERS } from '@root/constants/weather';
 import { getWeatherFromTemp } from '@root/utils/weather';
 import { Clothes } from '@root/clothes/clothes.entity';
+import { SF_SYMBOLS } from '@root/database/seeds/data';
 
 @Injectable()
 export class WeathersService {
@@ -145,6 +146,37 @@ export class WeathersService {
       }
 
       return { hourly: mappedHourlyData };
+    } catch (e) {
+      throw new Error(e);
+    }
+  }
+
+  async getWidget(lat: number, lon: number) {
+    console.log(`GET /weathers/widget?lat=${lat}lon=${lon}`);
+
+    try {
+      const {
+        data: { hourly },
+      } = await firstValueFrom<AxiosResponse<OpenWeatherHourlyResponse>>(
+        this.httpService.get(this.getOpenWeatherAPI('hourly', { lat, lon })),
+      );
+
+      const { dt, temp, weather, pop } = hourly[0];
+      const widgetResponse = {
+        dt,
+        temp,
+        weather,
+        pop,
+        symbole: SF_SYMBOLS[weather[0].icon],
+        clothes: [],
+      };
+
+      const { clothes } = await this.weathersRepository.findOne({
+        where: { id: getWeatherFromTemp(temp).id },
+        relations: ['clothes'],
+      });
+      widgetResponse.clothes = clothes;
+      return widgetResponse;
     } catch (e) {
       throw new Error(e);
     }
