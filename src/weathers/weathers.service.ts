@@ -165,7 +165,6 @@ export class WeathersService {
       const widgetResponse = {
         dt,
         temp,
-        weather,
         pop,
         symbole: SF_SYMBOLS[weather[0].icon],
         clothes: [],
