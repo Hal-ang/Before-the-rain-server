@@ -1,9 +1,14 @@
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { Module, ValidationPipe } from '@nestjs/common';
+
+import { APP_PIPE } from '@nestjs/core';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ConfigModule } from '@nestjs/config';
-import { Module } from '@nestjs/common';
-import appConfig from './configs/app.config';
-import path from 'path';
+import { ClothesModule } from './clothes/clothes.module';
+import { SurveysModule } from './surveys/surveys.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { UsersModule } from './users/users.module';
+import { WeathersModule } from './weathers/weathers.module';
 
 @Module({
   imports: [
@@ -11,8 +16,27 @@ import path from 'path';
       isGlobal: true,
       envFilePath: ['.env.development', '.env.production'],
     }),
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        type: 'mysql',
+        host: configService.get('DB_HOST'),
+        port: configService.get('DB_PORT'),
+        username: configService.get('DB_USERNAME'),
+        password: configService.get('DB_PASSWORD'),
+        database: configService.get('DB_NAME'),
+        entities: [__dirname + '/**/*.entity{.ts,.js}'],
+        synchronize: configService.get('MODE') === 'development' ? true : false,
+        autoLoadEntities: true,
+      }),
+    }),
+    UsersModule,
+    WeathersModule,
+    ClothesModule,
+    SurveysModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, { provide: APP_PIPE, useClass: ValidationPipe }],
 })
 export class AppModule {}
