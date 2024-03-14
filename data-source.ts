@@ -1,7 +1,7 @@
-import { DataSource } from 'typeorm';
-import { config } from 'dotenv';
+import * as dotenv from 'dotenv';
 
-config();
+import { DataSource } from 'typeorm';
+dotenv.config();
 
 export default new DataSource({
   type: 'mysql',
@@ -11,7 +11,7 @@ export default new DataSource({
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
   synchronize: true,
-  entities: ['src/**/*.entity{.js}'],
+  entities: ['src/**/*.entity.ts'],
   migrations: ['src/migrations/*.js'],
   migrationsTableName: 'migrations',
 });

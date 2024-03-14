@@ -27,7 +27,7 @@ import { WeathersModule } from './weathers/weathers.module';
         password: configService.get('DB_PASSWORD'),
         database: configService.get('DB_NAME'),
         entities: [__dirname + '/**/*.entity{.ts,.js}'],
-        synchronize: configService.get('MODE') === 'development' ? true : false,
+        synchronize: true,
         autoLoadEntities: true,
       }),
     }),
