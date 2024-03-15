@@ -166,7 +166,7 @@ export class WeathersService {
         dt,
         temp,
         pop,
-        symbole: SF_SYMBOLS[weather[0].icon],
+        symbol: SF_SYMBOLS[weather[0].icon],
         clothes: [],
       };
 
