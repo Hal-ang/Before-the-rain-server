@@ -1,10 +1,5 @@
 import { InjectRepository } from '@nestjs/typeorm';
-import {
-  ConflictException,
-  HttpException,
-  HttpStatus,
-  Injectable,
-} from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
 import { CreateUserDto } from './userDto';
