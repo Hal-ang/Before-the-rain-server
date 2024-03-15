@@ -3,7 +3,6 @@ import { ConflictException, Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
 import { CreateUserDto } from './userDto';
-
 import { Survey } from '@root/surveys/survey.entity';
 import { CreatedUserReponse } from './users.type';
 
