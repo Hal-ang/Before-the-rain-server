@@ -1,9 +1,10 @@
 import {
   Column,
+  CreateDateColumn,
   Entity,
-  JoinColumn,
   OneToOne,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 
 import { Survey } from 'src/surveys/survey.entity';
@@ -16,6 +17,12 @@ export class User {
   @Column()
   fcmToken: string;
 
-  @OneToOne(() => Survey, (survey) => survey.user)
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
+
+  @OneToOne(() => Survey, (survey) => survey)
   survey: Survey;
 }
