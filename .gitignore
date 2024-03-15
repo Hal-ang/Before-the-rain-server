@@ -400,3 +400,5 @@ dist
 .serverless/**/*.zip
 secrets
 .env
+
+deploy.md
