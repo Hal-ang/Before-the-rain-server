@@ -6,6 +6,8 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
+import { IsString } from 'class-validator';
+import { TimePeriod } from './constants';
 import { User } from 'src/users/user.entity';
 
 @Entity()
@@ -20,9 +22,12 @@ export class Survey {
   isSummaryAlertEnabled: boolean;
 
   @Column('simple-array')
-  timePeriods: string[];
+  timePeriods: TimePeriod[];
 
-  @OneToOne(() => User, (user) => user.survey)
+  @IsString()
+  summaryAlertTime: string;
+
+  @OneToOne(() => User, (user) => user.id)
   @JoinColumn()
   user: User;
 }

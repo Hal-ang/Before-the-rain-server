@@ -1,14 +1,15 @@
-import { Controller, Get, Post } from '@nestjs/common';
+import { Body, ConflictException, Controller, Get, Post } from '@nestjs/common';
 
-import { User } from './user.entity';
 import { UsersService } from './users.service';
+import { CreateUserDto } from './userDto';
+import { CreatedUserReponse } from './users.type';
 
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @Get()
-  getHello(fcmToken: string): Promise<User | null> {
-    return this.usersService.getUser(fcmToken);
+  @Post()
+  createUser(@Body() createUser: CreateUserDto): Promise<CreatedUserReponse> {
+    return this.usersService.createUser(createUser);
   }
 }

@@ -1,7 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Survey } from './survey.entity';
+import { SurveyDto } from './surveyDto';
 
 @Injectable()
 export class SurveysService {
@@ -10,15 +11,15 @@ export class SurveysService {
     private surveysRepository: Repository<Survey>,
   ) {}
 
-  findAll(): Promise<Survey[]> {
-    return this.surveysRepository.find();
-  }
+  async updateSurvey(userId: number, newSurvey: SurveyDto) {
+    const survey = await this.surveysRepository.findOne({
+      where: { user: { id: userId } },
+    });
 
-  findOne(id: number): Promise<Survey | null> {
-    return this.surveysRepository.findOneBy({ id });
-  }
+    if (!survey) {
+      throw new NotFoundException('User not found');
+    }
 
-  async remove(id: number): Promise<void> {
-    await this.surveysRepository.delete(id);
+    return await this.surveysRepository.save({ ...newSurvey, id: survey.id });
   }
 }
