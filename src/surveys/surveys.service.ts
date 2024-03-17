@@ -11,9 +11,10 @@ export class SurveysService {
     private surveysRepository: Repository<Survey>,
   ) {}
 
-  async updateSurvey(userId: number, newSurvey: SurveyDto) {
+  async updateSurvey(userId: string, newSurvey: SurveyDto) {
+    console.log('call updateSurvey');
     const survey = await this.surveysRepository.findOne({
-      where: { user: { id: userId } },
+      where: { user: { id: parseInt(userId) } },
     });
 
     if (!survey) {

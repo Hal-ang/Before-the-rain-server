@@ -36,4 +36,11 @@ export class UsersService {
       throw new Error(e);
     }
   }
+  async updateUserToken(fcmToken: string, userId: string) {
+    const user = await this.usersRepository.findOne({
+      where: { id: parseInt(userId) },
+    });
+    user.fcmToken = fcmToken;
+    await this.usersRepository.save(user);
+  }
 }

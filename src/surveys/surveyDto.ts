@@ -3,8 +3,6 @@ import {
   ArrayMinSize,
   IsArray,
   IsNumber,
-  IsOptional,
-  IsString,
   Max,
   Min,
 } from 'class-validator';
@@ -22,6 +20,6 @@ export class SurveyDto {
   @ArrayMaxSize(5)
   timePeriods: TimePeriod[];
 
-  @IsString()
-  summaryAlertTime: string;
+  @IsNumber()
+  summaryAlertTime: number;
 }
