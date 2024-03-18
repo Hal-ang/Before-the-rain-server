@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Query, Res } from '@nestjs/common';
+import { Controller, Get, Head, Param, Query, Req, Res } from '@nestjs/common';
 
 import { WeathersService } from './weathers.service';
 
@@ -51,5 +51,33 @@ export class WeathersController {
       // return 'failed';
     }
     return this.weathersService.getWidget(Number(lat), Number(lon));
+  }
+
+  @Head('push')
+  sendPushNotification(
+    @Query()
+    {
+      lat,
+      lon,
+      type,
+      period,
+    }: {
+      lat?: string;
+      lon?: string;
+      type?: 'summary' | 'period';
+      period?: string;
+    },
+    @Req() { headers }: Request,
+  ) {
+    const fcmToken = headers['authorization'];
+    if (!lat || !lon) {
+    }
+    return this.weathersService.sendPushNotification(
+      Number(lat),
+      Number(lon),
+      type,
+      fcmToken,
+      period,
+    );
   }
 }

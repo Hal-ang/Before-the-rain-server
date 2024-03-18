@@ -180,4 +180,22 @@ export class WeathersService {
       throw new Error(e);
     }
   }
+
+  // TODO : 인자 수 줄이기
+  async sendPushNotification(
+    lat: number,
+    lon: number,
+    type: 'summary' | 'period',
+    fcmToken: string,
+    period?: string,
+  ) {
+    if (type === 'summary') {
+      console.log('HEAD /weathers/push' + type + period + fcmToken);
+      // this.getTodayBanner(lat , lon)
+      return 'call summary';
+    } else {
+      console.log('HEAD /weathers/push' + type + period + fcmToken);
+      return 'call period ';
+    }
+  }
 }
