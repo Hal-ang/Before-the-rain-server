@@ -1,8 +1,11 @@
 import * as admin from 'firebase-admin';
+import * as dotenv from 'dotenv';
 
 import { AppModule } from './app.module';
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
+
+dotenv.config();
 
 async function bootstrap() {
   const fs = require('fs');
@@ -25,7 +28,7 @@ async function bootstrap() {
     }),
   );
 
-  const serviceAccount = require('/Users/hal-ang/Desktop/before-the-rain/server/before-the-rain-firebase-adminsdk-agznf-459d107160.json');
+  const serviceAccount = require(process.env.GOOGLE_SERVICE_JSON_PATH);
 
   admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
