@@ -1,3 +1,5 @@
+import * as admin from 'firebase-admin';
+
 import { AppModule } from './app.module';
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
@@ -22,6 +24,12 @@ async function bootstrap() {
       },
     }),
   );
+
+  const serviceAccount = require('/Users/hal-ang/Desktop/before-the-rain/server/before-the-rain-firebase-adminsdk-agznf-459d107160.json');
+
+  admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+  });
 
   await app.listen(4000);
 }

@@ -17,9 +17,6 @@ export class Survey {
   @Column()
   alertBeforeRain: number;
 
-  @Column()
-  isSummaryAlertEnabled: boolean;
-
   @Column('simple-array')
   timePeriods: TimePeriod[];
 
