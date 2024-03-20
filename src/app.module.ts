@@ -2,9 +2,11 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { Module, ValidationPipe } from '@nestjs/common';
 
 import { APP_PIPE } from '@nestjs/core';
+import { AlertModule } from './alert/alert.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ClothesModule } from './clothes/clothes.module';
+import { ScheduleModule } from '@nestjs/schedule';
 import { SurveysModule } from './surveys/surveys.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
@@ -12,6 +14,7 @@ import { WeathersModule } from './weathers/weathers.module';
 
 @Module({
   imports: [
+    ScheduleModule.forRoot(),
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: ['.env.development', '.env.production'],
@@ -35,6 +38,7 @@ import { WeathersModule } from './weathers/weathers.module';
     WeathersModule,
     ClothesModule,
     SurveysModule,
+    AlertModule,
   ],
   controllers: [AppController],
   providers: [AppService, { provide: APP_PIPE, useClass: ValidationPipe }],

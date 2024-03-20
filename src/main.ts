@@ -1,21 +1,16 @@
+import * as admin from 'firebase-admin';
+import * as dotenv from 'dotenv';
+
 import { AppModule } from './app.module';
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 
+dotenv.config();
+
 async function bootstrap() {
   const fs = require('fs');
 
-  const app = await NestFactory.create(
-    AppModule,
-    process.env.MODE === 'development'
-      ? {
-          httpsOptions: {
-            key: fs.readFileSync(process.env.KEY_PEM),
-            cert: fs.readFileSync(process.env.CERT_PEM),
-          },
-        }
-      : {},
-  );
+  const app = await NestFactory.create(AppModule);
 
   app.enableCors({
     origin: '*',
@@ -32,6 +27,12 @@ async function bootstrap() {
       },
     }),
   );
+
+  const serviceAccount = require(process.env.GOOGLE_SERVICE_JSON_PATH);
+
+  admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+  });
 
   await app.listen(4000);
 }
